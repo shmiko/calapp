@@ -19,8 +19,17 @@ var passport           = require('passport');
 var cors               = require('./server/cors');
 var globalErrorHandler = require('./server/error');
 //routers
-var routers            = require('./server/routers');
-
+var routes            = require('./server/routes');
+var auth = {
+      		list : function(request, response){  
+            require('./routes/user.js');
+            } 
+		},
+  	google = {
+      		index : function(request, response){ 
+          	require('./routes/index.js') 
+          	}
+        } 
 //================================================================================
 // Properties
 //================================================================================
@@ -58,8 +67,8 @@ app.use(globalErrorHandler);                             //handles all unresolve
 // Initialization
 //================================================================================
 //mount all our routes to the appropriate path
-app.use('.routers/auth', routers.auth);
-app.use('./google', routers.google);
+app.use('/auth', routes.auth);
+app.use('/google', routes.google);
 
 app.listen(port, function() {
   console.log('Listening on ' + port);
